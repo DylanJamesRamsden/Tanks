@@ -13,5 +13,12 @@ UCLASS()
 class TANKS_API ADGameplayGameMode : public AGameModeBase
 {
 	GENERATED_BODY()
+
+protected:
+
+	// The class to search for when looking for an actor to view the level from
+	UPROPERTY(EditDefaultsOnly)
+	TSubclassOf<AActor> LevelViewpointClass;
 	
+	virtual void HandleStartingNewPlayer_Implementation(APlayerController* NewPlayer) override;
 };
