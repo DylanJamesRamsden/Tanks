@@ -65,6 +65,6 @@ void ADTank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	// Binds the move and rotate actions to a function that is called when the action is triggered
 	UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerInputComponent);
 	EnhancedInputComponent->BindAction(InputConfigData->InputMove, ETriggerEvent::Triggered, this, &ADTank::Move);
-	EnhancedInputComponent->BindAction(InputConfigData->InputMove, ETriggerEvent::Triggered, this, &ADTank::Rotate);
+	EnhancedInputComponent->BindAction(InputConfigData->InputRotate, ETriggerEvent::Triggered, this, &ADTank::Rotate);
 }
 
