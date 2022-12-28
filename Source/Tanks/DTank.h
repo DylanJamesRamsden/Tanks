@@ -8,7 +8,7 @@
 
 class UInputMappingContext;
 class UDTankInputConfigData;
-class FInputActionValue;
+struct FInputActionValue;
 
 UCLASS()
 class TANKS_API ADTank : public APawn
