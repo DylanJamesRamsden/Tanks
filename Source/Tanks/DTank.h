@@ -6,6 +6,10 @@
 #include "GameFramework/Pawn.h"
 #include "DTank.generated.h"
 
+class UInputMappingContext;
+class UDTankInputConfigData;
+class FInputActionValue;
+
 UCLASS()
 class TANKS_API ADTank : public APawn
 {
@@ -27,9 +31,21 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly)
 	UStaticMeshComponent* RightWheelStaticMeshComp;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Enhanced Input")
+	class UInputMappingContext* InputMapping;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Enhanced Input")
+	UDTankInputConfigData* InputConfigData;
 	
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+	// Moves the tank
+	void Move(const FInputActionValue& Value);
+
+	// Rotates the tank
+	void Rotate(const FInputActionValue& Value);
 
 public:	
 	// Called every frame
