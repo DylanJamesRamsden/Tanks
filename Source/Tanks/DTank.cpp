@@ -9,6 +9,13 @@ ADTank::ADTank()
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	BodyStaticMeshComp = CreateDefaultSubobject<UStaticMeshComponent>("BodyMesh");
+	LeftWheelStaticMeshComp = CreateDefaultSubobject<UStaticMeshComponent>("LeftWheelMesh");
+	RightWheelStaticMeshComp = CreateDefaultSubobject<UStaticMeshComponent>("RightWheelMesh");
+
+	RootComponent = BodyStaticMeshComp;
+	LeftWheelStaticMeshComp->SetupAttachment(RootComponent);
+	RightWheelStaticMeshComp->SetupAttachment(RootComponent);
 }
 
 // Called when the game starts or when spawned

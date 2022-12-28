@@ -16,6 +16,18 @@ public:
 	ADTank();
 
 protected:
+
+	// The static mesh that represents the tank's body
+	UPROPERTY(EditDefaultsOnly)
+	UStaticMeshComponent* BodyStaticMeshComp;
+
+	// @TODO In the future, if the tank has moving wheels and what not these would need to be a USkeletalMeshComponent
+	UPROPERTY(EditDefaultsOnly)
+	UStaticMeshComponent* LeftWheelStaticMeshComp;
+
+	UPROPERTY(EditDefaultsOnly)
+	UStaticMeshComponent* RightWheelStaticMeshComp;
+	
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
