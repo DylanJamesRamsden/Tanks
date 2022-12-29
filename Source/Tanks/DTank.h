@@ -8,6 +8,7 @@
 
 class UInputMappingContext;
 class UDTankInputConfigData;
+class ADCannon;
 struct FInputActionValue;
 
 UCLASS()
@@ -49,6 +50,12 @@ protected:
 	// The speed at which to rotate the tank while rotating
 	UPROPERTY(EditDefaultsOnly, Category = "Movement")
 	float RotationSpeed = .5f;
+
+	UPROPERTY(EditDefaultsOnly)
+	UChildActorComponent* CannonChildActorComp;
+
+	UPROPERTY(BlueprintReadOnly)
+	ADCannon* MyCannon;
 	
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

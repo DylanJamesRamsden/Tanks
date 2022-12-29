@@ -3,6 +3,7 @@
 
 #include "DTank.h"
 
+#include "DCannon.h"
 #include "DTankInputConfigData.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInput/Public/InputMappingContext.h"
@@ -17,6 +18,7 @@ ADTank::ADTank()
 	BodyStaticMeshComp = CreateDefaultSubobject<UStaticMeshComponent>("BodyMesh");
 	LeftWheelStaticMeshComp = CreateDefaultSubobject<UStaticMeshComponent>("LeftWheelMesh");
 	RightWheelStaticMeshComp = CreateDefaultSubobject<UStaticMeshComponent>("RightWheelMesh");
+	CannonChildActorComp = CreateDefaultSubobject<UChildActorComponent>("CannonChildActor");
 
 	// In case I decide to move away from physics based movement
 	// MovementComp = CreateDefaultSubobject<UFloatingPawnMovement>("MovementComponent");
@@ -24,6 +26,7 @@ ADTank::ADTank()
 	RootComponent = BodyStaticMeshComp;
 	LeftWheelStaticMeshComp->SetupAttachment(RootComponent);
 	RightWheelStaticMeshComp->SetupAttachment(RootComponent);
+	CannonChildActorComp->SetupAttachment(RootComponent);
 
 	BodyStaticMeshComp->SetSimulatePhysics(true);
 	BodyStaticMeshComp->SetMassOverrideInKg(EName::None, 400.0f);
@@ -36,7 +39,16 @@ ADTank::ADTank()
 void ADTank::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
+	if (AActor* CannonChildActor = CannonChildActorComp->GetChildActor())
+	{
+		MyCannon = Cast<ADCannon>(CannonChildActor);
+		if (!MyCannon)
+		{
+			UE_LOG(LogTemp, Error, TEXT("The Child Actor of CannonChildActorComp does not derive from DCannon on %s"), *GetName())
+		}
+	}
+	else UE_LOG(LogTemp, Error, TEXT("No Child Actor Class assigned to CannonChildActorComp on %s"), *GetName())
 }
 
 void ADTank::Move(const FInputActionValue& Value)
