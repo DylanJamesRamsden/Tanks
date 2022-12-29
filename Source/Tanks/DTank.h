@@ -32,11 +32,23 @@ protected:
 	UPROPERTY(EditDefaultsOnly)
 	UStaticMeshComponent* RightWheelStaticMeshComp;
 
+	// In case I decide to move away from physics based movement
+	/*UPROPERTY(EditDefaultsOnly)
+	UFloatingPawnMovement* MovementComp;*/
+
 	UPROPERTY(EditDefaultsOnly, Category = "Enhanced Input")
 	class UInputMappingContext* InputMapping;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Enhanced Input")
 	UDTankInputConfigData* InputConfigData;
+
+	// The amount of force to apply to the tank in it's forward direction while moving
+	UPROPERTY(EditDefaultsOnly, Category = "Movement")
+	float MovementForce = 500000.0f;
+
+	// The speed at which to rotate the tank while rotating
+	UPROPERTY(EditDefaultsOnly, Category = "Movement")
+	float RotationSpeed = .5f;
 	
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

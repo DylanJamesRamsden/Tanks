@@ -4,7 +4,6 @@
 #include "DTank.h"
 
 #include "DTankInputConfigData.h"
-#include "TanksGameModeBase.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInput/Public/InputMappingContext.h"
 #include "EnhancedInput/Public/EnhancedInputSubsystems.h"
@@ -19,9 +18,18 @@ ADTank::ADTank()
 	LeftWheelStaticMeshComp = CreateDefaultSubobject<UStaticMeshComponent>("LeftWheelMesh");
 	RightWheelStaticMeshComp = CreateDefaultSubobject<UStaticMeshComponent>("RightWheelMesh");
 
+	// In case I decide to move away from physics based movement
+	// MovementComp = CreateDefaultSubobject<UFloatingPawnMovement>("MovementComponent");
+
 	RootComponent = BodyStaticMeshComp;
 	LeftWheelStaticMeshComp->SetupAttachment(RootComponent);
 	RightWheelStaticMeshComp->SetupAttachment(RootComponent);
+
+	BodyStaticMeshComp->SetSimulatePhysics(true);
+	BodyStaticMeshComp->SetMassOverrideInKg(EName::None, 400.0f);
+	// Note: If roll ever does become a problem, I will just lock the X-axis rotation
+	//BodyStaticMeshComp->BodyInstance.bLockXRotation = true;
+	BodyStaticMeshComp->SetAngularDamping(50.0f);
 }
 
 // Called when the game starts or when spawned
@@ -33,10 +41,19 @@ void ADTank::BeginPlay()
 
 void ADTank::Move(const FInputActionValue& Value)
 {
+	// In case I decide to move away from physics based movement
+	//AddMovementInput(GetActorForwardVector(), Value.Get<float>(), true);
+	
+	BodyStaticMeshComp->AddForce(GetActorForwardVector() * Value.Get<float>() * MovementForce);
+
+	// Note: Note seeing any need to clamp the velocity right now as the maps will be extremely small
 }
 
 void ADTank::Rotate(const FInputActionValue& Value)
 {
+	const FRotator CurrentRotation = GetActorRotation();
+	const FRotator NewRotation = FRotator(CurrentRotation.Pitch, CurrentRotation.Yaw + (RotationSpeed * Value.Get<float>()), CurrentRotation.Roll);
+	SetActorRotation(NewRotation);
 }
 
 // Called every frame
