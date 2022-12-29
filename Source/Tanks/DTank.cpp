@@ -40,6 +40,7 @@ void ADTank::BeginPlay()
 {
 	Super::BeginPlay();
 
+	// Casts the CannonChildActorComp's actor to a DCannon and stores a ref to it
 	if (AActor* CannonChildActor = CannonChildActorComp->GetChildActor())
 	{
 		MyCannon = Cast<ADCannon>(CannonChildActor);
