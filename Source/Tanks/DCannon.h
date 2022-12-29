@@ -6,6 +6,8 @@
 #include "GameFramework/Actor.h"
 #include "DCannon.generated.h"
 
+class UArrowComponent;
+
 UCLASS()
 class TANKS_API ADCannon : public AActor
 {
@@ -16,6 +18,16 @@ public:
 	ADCannon();
 
 protected:
+
+	UPROPERTY(EditDefaultsOnly)
+	UStaticMeshComponent* BaseStaticMeshComp;
+
+	UPROPERTY(EditDefaultsOnly)
+	UStaticMeshComponent* BarrelStaticMeshComp;
+
+	UPROPERTY(EditDefaultsOnly)
+	UArrowComponent* ProjectileSpawnOriginComp;
+	
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
