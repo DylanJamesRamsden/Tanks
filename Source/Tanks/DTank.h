@@ -55,7 +55,10 @@ protected:
 	UChildActorComponent* CannonChildActorComp;
 
 	UPROPERTY(BlueprintReadOnly)
-	ADCannon* MyCannon;
+	ADCannon* CannonRef;
+
+	UPROPERTY()
+	APlayerController* PlayerControllerRef; 
 	
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

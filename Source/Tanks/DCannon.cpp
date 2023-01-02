@@ -4,6 +4,8 @@
 #include "DCannon.h"
 
 #include "Components/ArrowComponent.h"
+#include "Kismet/GameplayStatics.h"
+#include "Kismet/KismetMathLibrary.h"
 
 // Sets default values
 ADCannon::ADCannon()
@@ -31,6 +33,15 @@ void ADCannon::BeginPlay()
 void ADCannon::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
+	
 }
 
+void ADCannon::UpdateAimLocation(const FVector TargetLocation)
+{
+	const float DeltaTime = UGameplayStatics::GetWorldDeltaSeconds(this);
+	
+	const FRotator TargetRotation = UKismetMathLibrary::FindLookAtRotation(GetActorLocation(), TargetLocation);
+
+	// Interps from the current rotation of the cannon to the target rotation
+	SetActorRotation(FMath::RInterpTo(GetActorRotation(), FRotator(GetActorRotation().Pitch, TargetRotation.Yaw, GetActorRotation().Roll), DeltaTime, RotationSpeed));
+}

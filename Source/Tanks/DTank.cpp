@@ -40,11 +40,15 @@ void ADTank::BeginPlay()
 {
 	Super::BeginPlay();
 
+	// Just sorting a ref to the player controller as I don't want to have to regrab it everytime I need it
+	PlayerControllerRef = GetController<APlayerController>();
+	check(PlayerControllerRef);
+
 	// Casts the CannonChildActorComp's actor to a DCannon and stores a ref to it
 	if (AActor* CannonChildActor = CannonChildActorComp->GetChildActor())
 	{
-		MyCannon = Cast<ADCannon>(CannonChildActor);
-		if (!MyCannon)
+		CannonRef = Cast<ADCannon>(CannonChildActor);
+		if (!CannonRef)
 		{
 			UE_LOG(LogTemp, Error, TEXT("The Child Actor of CannonChildActorComp does not derive from DCannon on %s"), *GetName())
 		}
@@ -74,6 +78,21 @@ void ADTank::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	// Rotates the cannon to face the player's mouse location
+	if (PlayerControllerRef)
+	{
+		float MouseScreenPosX;
+		float MouseScreenPosY;
+		PlayerControllerRef->GetMousePosition(MouseScreenPosX, MouseScreenPosY);
+
+		FVector MousePosToWorldPos;
+		FVector MouseDirection;
+		PlayerControllerRef->DeprojectScreenPositionToWorld(MouseScreenPosX, MouseScreenPosY, MousePosToWorldPos, MouseDirection);
+
+		FVector TargetLocation = FMath::LinePlaneIntersection(MousePosToWorldPos, MousePosToWorldPos + (MouseDirection * 1000), GetActorLocation(), FVector(0, 0, 1));
+	
+		CannonRef->UpdateAimLocation(TargetLocation);	
+	}
 }
 
 // Called to bind functionality to input
