@@ -69,6 +69,9 @@ protected:
 	// Rotates the tank
 	void Rotate(const FInputActionValue& Value);
 
+	// Notifies the tanks cannon to fire a projectile
+	void Fire(const FInputActionValue& Value);
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;

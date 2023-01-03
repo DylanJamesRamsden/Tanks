@@ -73,6 +73,14 @@ void ADTank::Rotate(const FInputActionValue& Value)
 	SetActorRotation(NewRotation);
 }
 
+void ADTank::Fire(const FInputActionValue& Value)
+{
+	if (Value.Get<bool>())
+	{
+		if (CannonRef) CannonRef->Fire();
+	}
+}
+
 // Called every frame
 void ADTank::Tick(float DeltaTime)
 {
@@ -115,5 +123,6 @@ void ADTank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerInputComponent);
 	EnhancedInputComponent->BindAction(InputConfigData->InputMove, ETriggerEvent::Triggered, this, &ADTank::Move);
 	EnhancedInputComponent->BindAction(InputConfigData->InputRotate, ETriggerEvent::Triggered, this, &ADTank::Rotate);
+	EnhancedInputComponent->BindAction(InputConfigData->InputPrimaryFire, ETriggerEvent::Triggered, this, &ADTank::Fire);
 }
 
