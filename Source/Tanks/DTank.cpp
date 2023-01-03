@@ -73,7 +73,7 @@ void ADTank::Rotate(const FInputActionValue& Value)
 	SetActorRotation(NewRotation);
 }
 
-void ADTank::Fire(const FInputActionValue& Value)
+void ADTank::PrimaryFire(const FInputActionValue& Value)
 {
 	if (Value.Get<bool>())
 	{
@@ -123,6 +123,6 @@ void ADTank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerInputComponent);
 	EnhancedInputComponent->BindAction(InputConfigData->InputMove, ETriggerEvent::Triggered, this, &ADTank::Move);
 	EnhancedInputComponent->BindAction(InputConfigData->InputRotate, ETriggerEvent::Triggered, this, &ADTank::Rotate);
-	EnhancedInputComponent->BindAction(InputConfigData->InputPrimaryFire, ETriggerEvent::Triggered, this, &ADTank::Fire);
+	EnhancedInputComponent->BindAction(InputConfigData->InputPrimaryFire, ETriggerEvent::Triggered, this, &ADTank::PrimaryFire);
 }
 

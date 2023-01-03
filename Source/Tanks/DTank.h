@@ -70,7 +70,7 @@ protected:
 	void Rotate(const FInputActionValue& Value);
 
 	// Notifies the tanks cannon to fire a projectile
-	void Fire(const FInputActionValue& Value);
+	void PrimaryFire(const FInputActionValue& Value);
 
 public:	
 	// Called every frame
