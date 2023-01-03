@@ -3,6 +3,7 @@
 
 #include "DCannon.h"
 
+#include "DProjectile.h"
 #include "Components/ArrowComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetMathLibrary.h"
@@ -44,4 +45,20 @@ void ADCannon::UpdateAimLRotation(const FVector TargetLocation)
 
 	// Interps from the current rotation of the cannon to the target rotation
 	SetActorRotation(FMath::RInterpTo(GetActorRotation(), FRotator(GetActorRotation().Pitch, TargetRotation.Yaw, GetActorRotation().Roll), DeltaTime, RotationSpeed));
+}
+
+void ADCannon::Fire()
+{
+	if (ProjectileClass)
+	{
+		FActorSpawnParameters ActorSpawnParams;
+		AActor* SpawnedProjectile = GetWorld()->SpawnActor<ADProjectile>(ProjectileClass,
+			ProjectileSpawnOriginComp->GetComponentLocation(), ProjectileSpawnOriginComp->GetComponentRotation(), ActorSpawnParams);
+
+		if (!SpawnedProjectile)
+		{
+			UE_LOG(LogTemp, Warning, TEXT("Could not spawn projectile on %s"), *GetName())
+		}	
+	}
+	else UE_LOG(LogTemp, Error, TEXT("No projectile class assigned on %s"), *GetName())
 }

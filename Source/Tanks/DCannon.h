@@ -7,6 +7,7 @@
 #include "DCannon.generated.h"
 
 class UArrowComponent;
+class ADProjectile;
 
 UCLASS()
 class TANKS_API ADCannon : public AActor
@@ -28,8 +29,13 @@ protected:
 	UPROPERTY(EditDefaultsOnly)
 	UArrowComponent* ProjectileSpawnOriginComp;
 
+	// The speed at which the cannon rotates towards it's target location
 	UPROPERTY(EditDefaultsOnly)
 	float RotationSpeed = 15.0f;
+
+	// The projectile class to spawn when Fire() is fired
+	UPROPERTY(EditDefaultsOnly)
+	TSubclassOf<ADProjectile> ProjectileClass;
 	
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -40,4 +46,7 @@ public:
 
 	// Rotates the cannon to face the target location
 	void UpdateAimLRotation(const FVector TargetLocation);
+
+	// Fires a projectile from the transform of the ProjectileSpawnOriginComp
+	virtual void Fire();
 };
