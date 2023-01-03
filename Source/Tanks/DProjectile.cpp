@@ -15,13 +15,17 @@ ADProjectile::ADProjectile()
 	ProjectileMovementComp = CreateDefaultSubobject<UProjectileMovementComponent>("ProjectileMovementComponent");
 
 	RootComponent = StaticMeshComp;
+
+	ProjectileMovementComp->InitialSpeed = 2000.0f;
+	ProjectileMovementComp->ProjectileGravityScale = 0.0f;
 }
 
 // Called when the game starts or when spawned
 void ADProjectile::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
+	SetLifeSpan(3.0f);
 }
 
 // Called every frame
