@@ -22,4 +22,7 @@ public:
 
 	UPROPERTY(EditDefaultsOnly)
 	UInputAction* InputRotate;
+
+	UPROPERTY(EditDefaultsOnly)
+	UInputAction* InputPrimaryFire;
 };
