@@ -39,5 +39,5 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	// Rotates the cannon to face the target location
-	void UpdateAimLocation(const FVector TargetLocation);
+	void UpdateAimLRotation(const FVector TargetLocation);
 };

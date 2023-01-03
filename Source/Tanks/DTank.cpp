@@ -91,7 +91,7 @@ void ADTank::Tick(float DeltaTime)
 
 		FVector TargetLocation = FMath::LinePlaneIntersection(MousePosToWorldPos, MousePosToWorldPos + (MouseDirection * 1000), GetActorLocation(), FVector(0, 0, 1));
 	
-		CannonRef->UpdateAimLocation(TargetLocation);	
+		CannonRef->UpdateAimLRotation(TargetLocation);	
 	}
 }
 

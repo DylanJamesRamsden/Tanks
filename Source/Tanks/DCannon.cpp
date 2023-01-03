@@ -36,7 +36,7 @@ void ADCannon::Tick(float DeltaTime)
 	
 }
 
-void ADCannon::UpdateAimLocation(const FVector TargetLocation)
+void ADCannon::UpdateAimLRotation(const FVector TargetLocation)
 {
 	const float DeltaTime = UGameplayStatics::GetWorldDeltaSeconds(this);
 	
