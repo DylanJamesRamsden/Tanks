@@ -19,6 +19,8 @@
     <setting file="file://$PROJECT_DIR$/Source/Tanks/DGameplayGameMode.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Tanks/DPlayerController.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Tanks/DPlayerController.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Source/Tanks/DProjectile.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Source/Tanks/DProjectile.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Tanks/DTank.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Tanks/DTank.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Tanks/DTankInputConfigData.h" root0="FORCE_HIGHLIGHTING" />
@@ -164,7 +166,7 @@
       <workItem from="1672178269481" duration="674000" />
       <workItem from="1672226163919" duration="27154000" />
       <workItem from="1672615459471" duration="631000" />
-      <workItem from="1672684897738" duration="5950000" />
+      <workItem from="1672684897738" duration="6726000" />
     </task>
     <servers />
   </component>
