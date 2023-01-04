@@ -7,6 +7,7 @@
 #include "DProjectile.generated.h"
 
 class UProjectileMovementComponent;
+class UNiagaraComponent;
 
 UCLASS()
 class TANKS_API ADProjectile : public AActor
@@ -20,6 +21,9 @@ public:
 
 	UPROPERTY(EditDefaultsOnly)
 	UProjectileMovementComponent* ProjectileMovementComp;
+
+	UPROPERTY(EditDefaultsOnly)
+	UNiagaraComponent* ParticleTrailComp;
 	
 	// Sets default values for this actor's properties
 	ADProjectile();

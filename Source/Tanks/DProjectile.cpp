@@ -2,6 +2,7 @@
 
 
 #include "DProjectile.h"
+#include "NiagaraComponent.h"
 
 #include "GameFramework/ProjectileMovementComponent.h"
 
@@ -13,8 +14,10 @@ ADProjectile::ADProjectile()
 
 	StaticMeshComp = CreateDefaultSubobject<UStaticMeshComponent>("Mesh");
 	ProjectileMovementComp = CreateDefaultSubobject<UProjectileMovementComponent>("ProjectileMovementComponent");
+	ParticleTrailComp = CreateDefaultSubobject<UNiagaraComponent>("ParticleTrail");
 
 	RootComponent = StaticMeshComp;
+	ParticleTrailComp->SetupAttachment(RootComponent);
 
 	ProjectileMovementComp->InitialSpeed = 2000.0f;
 	ProjectileMovementComp->ProjectileGravityScale = 0.0f;
