@@ -24,6 +24,8 @@
     <setting file="file://$PROJECT_DIR$/Source/Tanks/DTank.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Tanks/DTank.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Tanks/DTankInputConfigData.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Source/Tanks/Tanks.Build.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Source/Tanks/TanksGameModeBase.cpp" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -168,6 +170,11 @@
       <workItem from="1672615459471" duration="631000" />
       <workItem from="1672684897738" duration="7587000" />
       <workItem from="1672784099830" duration="5337000" />
+      <workItem from="1672837398844" duration="373000" />
+      <workItem from="1672837802003" duration="204000" />
+      <workItem from="1672838037126" duration="426000" />
+      <workItem from="1672838567963" duration="381000" />
+      <workItem from="1672839028970" duration="1912000" />
     </task>
     <servers />
   </component>
