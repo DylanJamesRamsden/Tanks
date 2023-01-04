@@ -40,7 +40,7 @@ void ADTank::BeginPlay()
 {
 	Super::BeginPlay();
 
-	// Just storing a ref to the player controller as I don't want to have to regrab it everytime I need it
+	// Just storing a ref to the player controller as I don't want to have to refetch it everytime I need it
 	PlayerControllerRef = GetController<APlayerController>();
 	check(PlayerControllerRef);
 
