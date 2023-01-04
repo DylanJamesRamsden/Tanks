@@ -62,15 +62,28 @@ protected:
 	
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+	
+	void MoveInput(const FInputActionValue& Value);
+	
+	void RotateInput(const FInputActionValue& Value);
+	
+	void PrimaryFireInput(const FInputActionValue& Value);
 
-	// Moves the tank
-	void Move(const FInputActionValue& Value);
+	/** Moves the tank either forwards or backwards
+	 * @param Direction If > 0, the tank will move forward. If < 0, the tank will move backwards
+	 **/
+	UFUNCTION(BlueprintCallable)
+	virtual void Move(float Direction);
 
-	// Rotates the tank
-	void Rotate(const FInputActionValue& Value);
+	/** Moves the tank either forwards or backwards
+	 * @param Direction If > 0, the tank will rotate right. If < 0, the tank will rotate left
+	 **/
+	UFUNCTION(BlueprintCallable)
+	virtual void Rotate(float Direction);
 
 	// Notifies the tanks cannon to fire a projectile
-	void PrimaryFire(const FInputActionValue& Value);
+	UFUNCTION(BlueprintCallable)
+	virtual void PrimaryFire();
 
 public:	
 	// Called every frame

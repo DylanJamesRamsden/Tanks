@@ -56,29 +56,51 @@ void ADTank::BeginPlay()
 	else UE_LOG(LogTemp, Error, TEXT("No Child Actor Class assigned to CannonChildActorComp on %s"), *GetName())
 }
 
-void ADTank::Move(const FInputActionValue& Value)
+void ADTank::MoveInput(const FInputActionValue& Value)
+{
+	Move(Value.Get<float>());
+}
+
+void ADTank::RotateInput(const FInputActionValue& Value)
+{
+	Rotate(Value.Get<float>());
+}
+
+void ADTank::PrimaryFireInput(const FInputActionValue& Value)
+{
+	if (Value.Get<bool>())
+	{
+		PrimaryFire();
+	}
+}
+
+void ADTank::Move(float Direction)
 {
 	// In case I decide to move away from physics based movement
 	//AddMovementInput(GetActorForwardVector(), Value.Get<float>(), true);
 	
-	BodyStaticMeshComp->AddForce(GetActorForwardVector() * Value.Get<float>() * MovementForce);
+	Direction = FMath::Clamp(Direction, -1.0f, 1.0f);
+	BodyStaticMeshComp->AddForce(GetActorForwardVector() * Direction * MovementForce);
 
 	// Note: Note seeing any need to clamp the velocity right now as the maps will be extremely small
 }
 
-void ADTank::Rotate(const FInputActionValue& Value)
+void ADTank::Rotate(float Direction)
 {
+	Direction = FMath::Clamp(Direction, -1.0f, 1.0f);
+	
 	const FRotator CurrentRotation = GetActorRotation();
-	const FRotator NewRotation = FRotator(CurrentRotation.Pitch, CurrentRotation.Yaw + (RotationSpeed * Value.Get<float>()), CurrentRotation.Roll);
+	const FRotator NewRotation = FRotator(CurrentRotation.Pitch, CurrentRotation.Yaw + (RotationSpeed * Direction), CurrentRotation.Roll);
 	SetActorRotation(NewRotation);
 }
 
-void ADTank::PrimaryFire(const FInputActionValue& Value)
+void ADTank::PrimaryFire()
 {
-	if (Value.Get<bool>())
+	if (CannonRef)
 	{
-		if (CannonRef) CannonRef->Fire();
+		CannonRef->Fire();
 	}
+	else UE_LOG(LogTemp, Error, TEXT("Attempting to fire with a nullptr CannonRef on %s"), *GetName())
 }
 
 // Called every frame
@@ -121,8 +143,8 @@ void ADTank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 	// Binds the move and rotate actions to a function that is called when the action is triggered
 	UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerInputComponent);
-	EnhancedInputComponent->BindAction(InputConfigData->InputMove, ETriggerEvent::Triggered, this, &ADTank::Move);
-	EnhancedInputComponent->BindAction(InputConfigData->InputRotate, ETriggerEvent::Triggered, this, &ADTank::Rotate);
-	EnhancedInputComponent->BindAction(InputConfigData->InputPrimaryFire, ETriggerEvent::Triggered, this, &ADTank::PrimaryFire);
+	EnhancedInputComponent->BindAction(InputConfigData->InputMove, ETriggerEvent::Triggered, this, &ADTank::MoveInput);
+	EnhancedInputComponent->BindAction(InputConfigData->InputRotate, ETriggerEvent::Triggered, this, &ADTank::RotateInput);
+	EnhancedInputComponent->BindAction(InputConfigData->InputPrimaryFire, ETriggerEvent::Triggered, this, &ADTank::PrimaryFireInput);
 }
 
