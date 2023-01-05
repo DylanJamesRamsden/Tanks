@@ -24,9 +24,20 @@ public:
 
 	UPROPERTY(EditDefaultsOnly)
 	UNiagaraComponent* ParticleTrailComp;
+
+	// How many times the projectile can bounce off of surfaces before it is destroyed
+	UPROPERTY(EditDefaultsOnly)
+	int32 BouncesAllowed = 1;
+
+	int32 BouncesMade;
 	
 	// Sets default values for this actor's properties
 	ADProjectile();
+
+	UFUNCTION()
+	void OnProjectileHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent,
+		FVector NormalImpulse, const FHitResult& Hit);
+	//virtual void NotifyActorBeginOverlap(AActor* OtherActor) override;
 
 protected:
 	// Called when the game starts or when spawned

@@ -2,8 +2,9 @@
 
 
 #include "DProjectile.h"
-#include "NiagaraComponent.h"
 
+#include "DTank.h"
+#include "NiagaraComponent.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 
 // Sets default values
@@ -21,6 +22,9 @@ ADProjectile::ADProjectile()
 
 	ProjectileMovementComp->InitialSpeed = 2000.0f;
 	ProjectileMovementComp->ProjectileGravityScale = 0.0f;
+	ProjectileMovementComp->bShouldBounce = true;
+	// Only .7f of the projectiles velocity is carried over once a bounce is made
+	ProjectileMovementComp->Bounciness = 0.7f;
 }
 
 // Called when the game starts or when spawned
@@ -29,6 +33,8 @@ void ADProjectile::BeginPlay()
 	Super::BeginPlay();
 
 	SetLifeSpan(3.0f);
+	
+	StaticMeshComp->OnComponentHit.AddDynamic(this, &ADProjectile::OnProjectileHit);
 }
 
 // Called every frame
@@ -36,5 +42,26 @@ void ADProjectile::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+}
+
+void ADProjectile::OnProjectileHit(UPrimitiveComponent* HitComponent, AActor* OtherActor,
+	UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit)
+{
+	if (!OtherActor->IsA(ADTank::StaticClass()))
+	{
+		// If we still have bounces to make we just increment the number of bounces made by 1, otherwise the projectile
+		// is just destroyed
+		if (BouncesMade != BouncesAllowed)
+		{
+			BouncesMade++;
+		}
+		else Destroy();
+	}
+	else
+	{
+		// Apply damage to other tank
+		
+		Destroy();
+	}
 }
 
