@@ -13,6 +13,7 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://C:/Program Files/Epic Games/UE_5.1/Engine/Plugins/EnhancedInput/Intermediate/Build/Win64/UnrealEditor/Inc/EnhancedInput/UHT/InputActionValue.generated.h" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://C:/Program Files/Epic Games/UE_5.1/Engine/Source/Runtime/Engine/Private/Actor.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Tanks/DCannon.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Tanks/DCannon.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Tanks/DGameplayGameMode.cpp" root0="FORCE_HIGHLIGHTING" />
@@ -175,7 +176,9 @@
       <workItem from="1672838037126" duration="426000" />
       <workItem from="1672838567963" duration="381000" />
       <workItem from="1672839028970" duration="1912000" />
-      <workItem from="1672848667628" duration="3058000" />
+      <workItem from="1672848667628" duration="11726000" />
+      <workItem from="1672928592623" duration="421000" />
+      <workItem from="1672929193741" duration="618000" />
     </task>
     <servers />
   </component>
