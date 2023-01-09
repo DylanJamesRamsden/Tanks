@@ -32,7 +32,7 @@ void ADProjectile::BeginPlay()
 {
 	Super::BeginPlay();
 
-	SetLifeSpan(3.0f);
+	//SetLifeSpan(3.0f);
 	
 	StaticMeshComp->OnComponentHit.AddDynamic(this, &ADProjectile::OnProjectileHit);
 }
