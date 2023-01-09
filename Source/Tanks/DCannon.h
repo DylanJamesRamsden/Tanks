@@ -34,11 +34,23 @@ protected:
 	float RotationSpeed = 15.0f;
 
 	// The projectile class to spawn when Fire() is fired
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(EditDefaultsOnly, Category = "Ballistics")
 	TSubclassOf<ADProjectile> ProjectileClass;
+
+	// How long (in seconds) until the next projectile can be fired. If 0.0f, there is no reload time.
+	UPROPERTY(EditDefaultsOnly, Category = "Ballistics")
+	float ReloadTime = 0.5f;
+
+	// Whether or not the cannon can fire a projectile
+	bool bIsArmed = true;
+
+	FTimerHandle ReloadTimerHandle;
 	
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+	
+	UFUNCTION(BlueprintNativeEvent)
+	void OnReloadComplete();
 
 public:	
 	// Called every frame

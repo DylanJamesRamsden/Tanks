@@ -30,6 +30,11 @@ void ADCannon::BeginPlay()
 	
 }
 
+void ADCannon::OnReloadComplete_Implementation()
+{
+	bIsArmed = true;
+}
+
 // Called every frame
 void ADCannon::Tick(float DeltaTime)
 {
@@ -51,14 +56,24 @@ void ADCannon::Fire()
 {
 	if (ProjectileClass)
 	{
-		FActorSpawnParameters ActorSpawnParams;
-		AActor* SpawnedProjectile = GetWorld()->SpawnActor<ADProjectile>(ProjectileClass,
-			ProjectileSpawnOriginComp->GetComponentLocation(), ProjectileSpawnOriginComp->GetComponentRotation(), ActorSpawnParams);
-
-		if (!SpawnedProjectile)
+		if (bIsArmed)
 		{
-			UE_LOG(LogTemp, Warning, TEXT("Could not spawn projectile on %s"), *GetName())
-		}	
+			FActorSpawnParameters ActorSpawnParams;
+			AActor* SpawnedProjectile = GetWorld()->SpawnActor<ADProjectile>(ProjectileClass,
+				ProjectileSpawnOriginComp->GetComponentLocation(), ProjectileSpawnOriginComp->GetComponentRotation(), ActorSpawnParams);
+
+			if (!SpawnedProjectile)
+			{
+				UE_LOG(LogTemp, Warning, TEXT("Could not spawn projectile on %s"), *GetName())
+			}
+
+			// If there is no cooldown time, there is no point in even starting the cooldown timer and toggling bCanFire
+			if (ReloadTime > 0.0f)
+			{
+				bIsArmed = false;
+				GetWorldTimerManager().SetTimer(ReloadTimerHandle, this, &ADCannon::OnReloadComplete, ReloadTime);	
+			}
+		}
 	}
 	else UE_LOG(LogTemp, Error, TEXT("No projectile class assigned on %s"), *GetName())
 }
